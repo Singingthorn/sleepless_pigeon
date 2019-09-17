@@ -1,6 +1,6 @@
 const { resolve} = require('path');
 const isDev = process.env.NODE_ENV === 'development';
-
+const tsImportPluginFactory = require('ts-import-plugin');
 
 module.exports = {
   entry: {
@@ -13,7 +13,7 @@ module.exports = {
     chunkFilename: 'js/[name].[chunkhash].js'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.tsx', '.jsx'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
     alias: {
       '@components': resolve(__dirname, '../src/components'),
       '@contains': resolve(__dirname, '../src/contains'),
@@ -29,8 +29,17 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)?$/,
-        include: resolve(__dirname, '../src'),
-        loader: 'awesome-typescript-loader'
+        loader: 'awesome-typescript-loader',
+        options: {
+          getCustomTransformers: () => ({
+            before: [ tsImportPluginFactory( {
+              libraryName: 'antd',
+              libraryDirectory: 'es',
+              style: 'css'
+            }) ]
+          }),
+        },
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpge|jpg|gif)$/,

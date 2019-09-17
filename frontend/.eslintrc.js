@@ -1,10 +1,11 @@
 module.exports = {
 	root: true,
-	parserOptions: {
+	parser: "@typescript-eslint/parser",
+  parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 6,
     ecmaFeatures: {
-      "jsx": true
+      jsx: true,
+      experimentalObjectRestSpread: true
     }
   },
 	env: {

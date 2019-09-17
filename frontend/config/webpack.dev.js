@@ -9,9 +9,9 @@ module.exports = webpackMerge(webpackBaseConfig, {
   module: {
     rules: [
       {
-        test: /\.sass/,
+        test: /\.(sass|css)/,
         use: [
-          'stly-loader',
+          'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
