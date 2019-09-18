@@ -33,6 +33,8 @@ npm start  // 启动服务端
 #### 项目目标
 - 前端工程化
   - [√]webpack4 + typescript + eslint
-  - [×]加入antd
+  - [√]加入antd, 按需加载antd
+  - [×]加入react-router4
+  - [×]加入redux
 
 - 功能

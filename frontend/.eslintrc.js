@@ -1,6 +1,6 @@
 module.exports = {
 	root: true,
-	parser: "@typescript-eslint/parser",
+	parser: "@typescript-eslint/parser", // 添加typescript 解析插件
   parserOptions: {
     sourceType: 'module',
     ecmaFeatures: {

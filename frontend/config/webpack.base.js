@@ -17,6 +17,7 @@ module.exports = {
     alias: {
       '@components': resolve(__dirname, '../src/components'),
       '@contains': resolve(__dirname, '../src/contains'),
+      '@utils': resolve(__dirname, '../src/utils'),
     }
   },
   module: {
@@ -26,6 +27,7 @@ module.exports = {
         enforce: 'pre',
         loader: 'eslint-loader',
         include: resolve(__dirname, '../src'),
+        exclude: /node_modules/,
       },
       {
         test: /\.(ts|tsx)?$/,
@@ -72,8 +74,8 @@ module.exports = {
           prefix: 'font',
           limit: 10000,
           outputPath: 'font'
-        }
-
+        },
+        include: resolve(__dirname, '../src'),
       }
     ]
   }
