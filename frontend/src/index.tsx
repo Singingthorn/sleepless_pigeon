@@ -1,11 +1,21 @@
-import * as ReactDOM from "react-dom";
-import * as React from "react";
-import { Button } from 'antd';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-// import BaseLayout from '@contains/BaseLayout';
-import BaseLayout from './contains/BaseLayout';
+import Router from './router';
+import cofigureStore from './redux';
+
+const initState = {};
+const store = cofigureStore(initState);
+
+const rootEle = document.getElementById("root");
+const components = (
+  <Provider store={store}>
+    <Router />
+  </Provider>
+)
 
 ReactDOM.render(
-  <BaseLayout />,
-  document.getElementById("root")
+  components,
+  rootEle
 )
