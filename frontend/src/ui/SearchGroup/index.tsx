@@ -14,7 +14,7 @@ export default function SearchGroup(props: searchGroupProps) {
   return (
     <div>
       <div className={styles.searchGroup}>{config.length ? getSearchCom(config) : null }</div>
-      <div className={styles.searchGroup}>{ statusConfig ? <StatuCom {...statusConfig} /> : null }</div>
+      {/* <div className={styles.searchGroup}>{ statusConfig ? <StatuCom {...statusConfig} /> : null }</div> */}
       <div></div>
       <Button disabled/>
     </div>

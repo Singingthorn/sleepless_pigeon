@@ -4,7 +4,7 @@ const tsImportPluginFactory = require('ts-import-plugin');
 
 module.exports = {
   entry: {
-    index: resolve(__dirname, '../src/index')
+    index: resolve(__dirname, '../src/test/chartTest/index')
   },
   output: {
     path: resolve(__dirname, '../static'),

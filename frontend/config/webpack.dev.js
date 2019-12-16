@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpackBaseConfig = require('./webpack.base.js');
 const { resolve } = require("path");
 
-const API_URL = process.env.API_URL || 'http://172.26.80.188:8006';
 const BIND_HOST = process.env.BIND_HOST || 'localhost';
 const BIND_PORT = process.env.BIND_PORT || 9527;
 
