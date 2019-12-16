@@ -13,10 +13,16 @@ module.exports = webpackMerge(webpackBaseConfig, {
   module: {
     rules: [
       {
-        test: /\.(sass|css)/,
+        test: /\.(s[ac]ss|css)/,
+        include: resolve(__dirname, '../src'),
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {

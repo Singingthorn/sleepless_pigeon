@@ -13,7 +13,7 @@ module.exports = {
     chunkFilename: 'js/[name].[chunkhash].js'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.tsx', '.jsx', '.json'],
+    extensions: ['.ts', '.js', '.tsx', '.scss', '.json'],
     alias: {
       // '@components': '../src/components',
       '@contains': resolve(__dirname, '../src/contains'),
@@ -42,6 +42,14 @@ module.exports = {
           }),
         },
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+           'css-loader',
+        ],
+        include: /node_modules/,
       },
       {
         test: /\.(png|jpge|jpg|gif)$/,

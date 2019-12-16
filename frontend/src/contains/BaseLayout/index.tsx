@@ -6,8 +6,11 @@ import SearchGroup from '../../ui/SearchGroup';
 const searchConfig: Array<Object> = [
   {
     type: 'select',
-    dataName: ''
-
+    dataName: 'depart'
+  },
+  {
+    type: 'input',
+    dataName: 'name'
   }
 ];
 
@@ -16,8 +19,7 @@ export default function BaseLayout() {
   return (
     <div>
       baseLayout
-      <SearchGroup />
-      <SearchCom type="input" />
+      <SearchGroup config={searchConfig} />
     </div>
   )
 }

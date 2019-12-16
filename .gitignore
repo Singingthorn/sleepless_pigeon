@@ -4,5 +4,5 @@
 .idea
 .idea/*
 
-frontend/node_modules
 frontend/static
+frontend/node_modules
