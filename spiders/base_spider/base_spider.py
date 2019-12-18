@@ -2,16 +2,17 @@
     spider base class
 """
 import json
+import random
 from typing import List, Any
 
 import redis
 from pymongo import MongoClient
 
-from settings import REIDS_CONFIG, MONGO_CONFIG
+from ..settings import USER_AGENT, REIDS_CONFIG, MONGO_CONFIG
 
 
 class BaseConn(object):
-    """基础连接类
+    """Basic connection class
     """
     def __init__(self) -> None:
        self.redis = self.redis_engine
@@ -32,21 +33,30 @@ class BaseConn(object):
 
 
 class BaseSpider(BaseConn):
-    """基础爬虫类
+    """Basic spider class
     """
-    def __init__(self, urls: List, name: str) -> None:
+    def __init__(self, jobs: str, name: str) -> None:
         super(__class__, self).__init__()
-        self.urls = urls
+        self.jobs = json.loads(jobs)
         self.name = name
         self.ret = list()
+        self.headers = dict()
     
-    def before_request(self):
-        raise NotImplementedError
+    def before_request(self, **kwargs):
+        """Ready headers before request
+
+        :param kwargs: something in HTTP headers
+        """
+        for k, v in kwargs.items():
+            self.headers.update({k: v})
+        self.headers.update({
+            'Usert-Agent': random.choice(USER_AGENT)
+        })
 
     def send_request(self):
         raise NotImplementedError
 
-    def judge_charset(self, content):
+    def judge_charset(self):
         raise NotImplementedError
 
     def deal_response(self):
@@ -56,6 +66,9 @@ class BaseSpider(BaseConn):
         self.redis.publish(channel, json.dumps(self.ret))
 
     def close_spider(self):
+        raise NotImplementedError
+
+    def render_html(self):
         raise NotImplementedError
 
     def __str__(self):

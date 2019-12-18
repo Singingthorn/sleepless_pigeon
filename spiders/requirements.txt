@@ -1,2 +1,3 @@
 requests
 mypy
+lxml
