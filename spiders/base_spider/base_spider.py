@@ -1,6 +1,7 @@
 """
     spider base class
 """
+import os
 import json
 import random
 from typing import List, Any
@@ -8,7 +9,7 @@ from typing import List, Any
 import redis
 from pymongo import MongoClient
 
-from ..settings import USER_AGENT, REIDS_CONFIG, MONGO_CONFIG
+from settings import USER_AGENT, REIDS_CONFIG, MONGO_CONFIG
 
 
 class BaseConn(object):
@@ -21,26 +22,26 @@ class BaseConn(object):
     @property
     def redis_engine(self) -> Any:
         return redis.Redis(
-            host = getattr(REIDS_CONFIG, 'REDIS_HOST'),
-            port = getattr(REIDS_CONFIG, 'REDIS_PORT')
+            host = getattr(REIDS_CONFIG, 'host'),
+            port = getattr(REIDS_CONFIG, 'port')
         )
     
     @property
     def mongo_engine(self) -> Any:
         return MongoClient(
-            getattr(MONGO_CONFIG, 'MONGODB_URI')
+            getattr(MONGO_CONFIG, 'uri')
         )
 
 
 class BaseSpider(BaseConn):
     """Basic spider class
     """
-    def __init__(self, jobs: str, name: str) -> None:
+    def __init__(self, jobs: str, name: str, channel: str) -> None:
         super(__class__, self).__init__()
         self.jobs = json.loads(jobs)
         self.name = name
-        self.ret = list()
         self.headers = dict()
+        self.channel = channel
     
     def before_request(self, **kwargs):
         """Ready headers before request
@@ -62,8 +63,8 @@ class BaseSpider(BaseConn):
     def deal_response(self):
         raise NotImplementedError
 
-    def throw_data(self, channel: str):
-        self.redis.publish(channel, json.dumps(self.ret))
+    def throw_data(self, items: List):
+        self.redis.publish(self.channel, json.dumps(items))
 
     def close_spider(self):
         raise NotImplementedError
